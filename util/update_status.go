@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/nanopack/mist/core"
+	mist "github.com/mu-box/mist/core"
 )
 
 // due to the way this uses the reflect library there are certain assumptions made

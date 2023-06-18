@@ -6,13 +6,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/nanobox-io/nanobox-boxfile"
-	"github.com/nanobox-io/nanobox-router"
+	boxfile "github.com/mu-box/microbox-boxfile"
+	router "github.com/mu-box/microbox-router"
 
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/util"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanobox-io/nanobox-server/util/script"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/util"
+	"github.com/mu-box/microbox-server/util/docker"
+	"github.com/mu-box/microbox-server/util/script"
 )
 
 var userBoxfile *boxfile.Boxfile
@@ -158,8 +158,8 @@ func routes(box boxfile.Boxfile) (rtn []router.Route) {
 func ports(box boxfile.Boxfile) map[string]map[string]string {
 	rtn := map[string]map[string]string{
 		"http": map[string]string{},
-		"tcp": map[string]string{},
-		"udp": map[string]string{},
+		"tcp":  map[string]string{},
+		"udp":  map[string]string{},
 	}
 
 	ports, ok := box.Value("ports").([]interface{})
@@ -286,8 +286,8 @@ func SetLibDirs() {
 	if ok && !box.Node("dev").BoolValue("ignore_lib_dirs") {
 		for _, libDir := range libDirs {
 			strDir, ok := libDir.(string)
-			if ok && isDir("/mnt/sda/var/nanobox/cache/lib_dirs/"+strDir) {
-				dockerLibDirs = append(dockerLibDirs, fmt.Sprintf("/mnt/sda/var/nanobox/cache/lib_dirs/%s/:/code/%s/", strDir, strDir))
+			if ok && isDir("/mnt/sda/var/microbox/cache/lib_dirs/"+strDir) {
+				dockerLibDirs = append(dockerLibDirs, fmt.Sprintf("/mnt/sda/var/microbox/cache/lib_dirs/%s/:/code/%s/", strDir, strDir))
 			}
 		}
 	}

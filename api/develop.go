@@ -1,20 +1,14 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
 package api
 
 import (
 	"net/http"
 	"sync"
 
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/jobs"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanobox-io/nanobox-server/util/fs"
-	"github.com/nanobox-io/nanobox-server/util/script"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/jobs"
+	"github.com/mu-box/microbox-server/util/docker"
+	"github.com/mu-box/microbox-server/util/fs"
+	"github.com/mu-box/microbox-server/util/script"
 )
 
 var developTex = sync.Mutex{}
@@ -30,7 +24,7 @@ func (api *API) Develop(rw http.ResponseWriter, req *http.Request) {
 
 	box := jobs.CombinedBoxfile(false)
 
-	image := "nanobox/build"
+	image := "mubox/build"
 	if stab := box.Node("build").StringValue("stability"); stab != "" {
 		image = image + ":" + stab
 	}

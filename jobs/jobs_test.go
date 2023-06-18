@@ -4,17 +4,17 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/nanobox-io/nanobox-boxfile"
+	"github.com/mu-box/microbox-boxfile"
 
 	dc "github.com/fsouza/go-dockerclient"
-	"github.com/nanobox-io/nanobox-server/jobs"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanobox-io/nanobox-server/util/docker/mock_docker"
+	"github.com/mu-box/microbox-server/jobs"
+	"github.com/mu-box/microbox-server/util/docker"
+	"github.com/mu-box/microbox-server/util/docker/mock_docker"
 
-	"github.com/nanobox-io/nanobox-server/util/fs"
-	"github.com/nanobox-io/nanobox-server/util/fs/mock_fs"
+	"github.com/mu-box/microbox-server/util/fs"
+	"github.com/mu-box/microbox-server/util/fs/mock_fs"
 
-	"github.com/nanobox-io/nanobox-server/util/script"
+	"github.com/mu-box/microbox-server/util/script"
 )
 
 func TestDeployRemoveOldContainers(t *testing.T) {
@@ -55,9 +55,9 @@ func TestCreateBuildContainer(t *testing.T) {
 	docker.Default = mDocker
 
 	gomock.InOrder(
-		mDocker.EXPECT().ImageExists("nanobox/build").Return(false),
-		mDocker.EXPECT().InstallImage("nanobox/build"),
-		mDocker.EXPECT().CreateContainer(docker.CreateConfig{Image: "nanobox/build", Category: "build", UID: "build1"}),
+		mDocker.EXPECT().ImageExists("mubox/build").Return(false),
+		mDocker.EXPECT().InstallImage("mubox/build"),
+		mDocker.EXPECT().CreateContainer(docker.CreateConfig{Image: "mubox/build", Category: "build", UID: "build1"}),
 	)
 
 	deploy := jobs.Deploy{}
@@ -158,7 +158,7 @@ env:
   PORT: 3000
 build:
   stability: beta
-  engine: '../../../nanobox-engine-golang'
+  engine: '../../../microbox-engine-golang'
 `))
 	r := jobs.DefaultEVars(box)
 	if r["PORT"] != "3000" {

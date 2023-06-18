@@ -3,8 +3,8 @@ package util
 import (
 	"strconv"
 
-	"github.com/nanobox-io/golang-lvs"
-	"github.com/nanobox-io/nanobox-server/config"
+	"github.com/mu-box/golang-lvs"
+	"github.com/mu-box/microbox-server/config"
 )
 
 // make sure the router is being forwarded

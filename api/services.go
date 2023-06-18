@@ -1,9 +1,3 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
 package api
 
 import (
@@ -12,14 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nanobox-io/nanobox-router"
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/util"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanobox-io/nanobox-server/util/script"
+	"github.com/mu-box/microbox-router"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/util"
+	"github.com/mu-box/microbox-server/util/docker"
+	"github.com/mu-box/microbox-server/util/script"
 )
 
-//
 type Service struct {
 	CreatedAt time.Time
 	IP        string
@@ -98,7 +91,7 @@ func (api *API) ListServices(rw http.ResponseWriter, req *http.Request) {
 	// marshall the services to json
 	b, err := json.Marshal(services)
 	if err != nil {
-		config.Log.Error("[NANOBOX :: API] list services (%s)", err.Error())
+		config.Log.Error("[MICROBOX :: API] list services (%s)", err.Error())
 	}
 
 	// return the list of services

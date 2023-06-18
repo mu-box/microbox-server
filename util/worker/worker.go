@@ -1,17 +1,10 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
-//
 package worker
 
 import (
 	"runtime/debug"
 	"sync"
 
-	"github.com/nanobox-io/nanobox-server/config"
+	"github.com/mu-box/microbox-server/config"
 )
 
 // structs
@@ -38,7 +31,6 @@ type (
 	}
 )
 
-//
 func New() *Worker {
 	return &Worker{
 		Blocking:   false,
@@ -53,7 +45,6 @@ func (w *Worker) Count() int {
 	return len(w.queue)
 }
 
-//
 func (w *Worker) Queue(job Job) {
 	w.queueTex.Lock()
 	defer w.queueTex.Unlock()
@@ -61,13 +52,11 @@ func (w *Worker) Queue(job Job) {
 	w.queue = append(w.queue, job)
 }
 
-//
 func (w *Worker) QueueAndProcess(job Job) {
 	w.Queue(job)
 	w.Process()
 }
 
-//
 func (w *Worker) Process() {
 	if w.Blocking {
 		w.execute()
@@ -78,7 +67,6 @@ func (w *Worker) Process() {
 
 // private
 
-//
 func (w *Worker) execute() {
 
 	w.doTex.Lock()
@@ -101,7 +89,6 @@ func (w *Worker) execute() {
 	w.Wait()
 }
 
-//
 func (w *Worker) nextJob() (Job, bool) {
 	w.queueTex.Lock()
 	defer w.queueTex.Unlock()
@@ -116,14 +103,13 @@ func (w *Worker) nextJob() (Job, bool) {
 	return nil, false
 }
 
-//
 func (w *Worker) processJob(job Job) {
 	defer w.Done()
 	//
 	defer func() {
 		if err := recover(); err != nil {
 			config.Log.Error("%s: %s", err, debug.Stack())
-			config.Log.Error("[NANOBOX :: WORKER] Job failed: %+v\n", err)
+			config.Log.Error("[MICROBOX :: WORKER] Job failed: %+v\n", err)
 		}
 	}()
 

@@ -13,14 +13,14 @@ import (
 
 	"github.com/jcelliott/lumber"
 
-	"github.com/nanobox-io/nanobox-logtap/collector"
-	"github.com/nanobox-io/nanobox-logtap/drain"
+	"github.com/mu-box/microbox-logtap/collector"
+	"github.com/mu-box/microbox-logtap/drain"
 
-	"github.com/nanobox-io/nanobox-server/api"
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/jobs"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanopack/mist/core"
+	"github.com/mu-box/mist/core"
+	"github.com/mu-box/microbox-server/api"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/jobs"
+	"github.com/mu-box/microbox-server/util/docker"
 )
 
 var apiClient = api.Init()
@@ -61,7 +61,7 @@ func TestMain(m *testing.M) {
 	}
 
 	go func() {
-		// start nanobox
+		// start microbox
 		if err := apiClient.Start(config.Ports["api"]); err != nil {
 			os.Exit(1)
 		}

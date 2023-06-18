@@ -10,9 +10,9 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/jcelliott/lumber"
 
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanobox-io/nanobox-server/util/docker/mock_docker"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/util/docker"
+	"github.com/mu-box/microbox-server/util/docker/mock_docker"
 )
 
 type createMatcher struct {
@@ -24,9 +24,9 @@ func (c createMatcher) Matches(x interface{}) bool {
 		return false
 	}
 	binds := []string{
-		"/mnt/sda/var/nanobox/cache/:/mnt/cache/",
-		"/mnt/sda/var/nanobox/deploy/:/mnt/deploy/",
-		"/mnt/sda/var/nanobox/build/:/mnt/build/",
+		"/mnt/sda/var/microbox/cache/:/mnt/cache/",
+		"/mnt/sda/var/microbox/deploy/:/mnt/deploy/",
+		"/mnt/sda/var/microbox/build/:/mnt/build/",
 		config.MountFolder + "code/app/:/share/code/:ro", // the app name cannot be grabbed outside the environment
 		config.MountFolder + "engines/:/share/engines/:ro",
 	}
@@ -68,7 +68,7 @@ func TestCreatContainer(t *testing.T) {
 	docker.Client = mClient
 
 	gomock.InOrder(
-		mClient.EXPECT().ListImages(dc.ListImagesOptions{}).Return([]dc.APIImages{dc.APIImages{RepoTags: []string{"nanobox/build:latest"}}}, nil),
+		mClient.EXPECT().ListImages(dc.ListImagesOptions{}).Return([]dc.APIImages{dc.APIImages{RepoTags: []string{"mubox/build:latest"}}}, nil),
 		mClient.EXPECT().CreateContainer(createMatcher{}).Return(&dc.Container{ID: "1234"}, nil),
 		mClient.EXPECT().StartContainer("1234", nil),
 		mClient.EXPECT().InspectContainer("1234"),
@@ -79,7 +79,7 @@ func TestCreatContainer(t *testing.T) {
 		UID:      "build1",
 		Name:     "build",
 		Cmd:      []string{"ls"},
-		Image:    "nanobox/build",
+		Image:    "mubox/build",
 	}
 	docker.CreateContainer(cc)
 
@@ -170,22 +170,22 @@ func TestImageExists(t *testing.T) {
 		RepoDigests []string          `json:"RepoDigests,omitempty" yaml:"RepoDigests,omitempty"`
 		Labels      map[string]string `json:"Labels,omitempty" yaml:"Labels,omitempty"`
 	}
-	base := dc.APIImages{RepoTags: []string{"nanobox/base:alpha", "nanobox/base:latest", "nanobox/base:beta"}}
-	redis := dc.APIImages{RepoTags: []string{"nanobox/redis:3.4", "nanobox/redis:latest", "nanobox/base:3.4-stable"}}
-	code := dc.APIImages{RepoTags: []string{"nanobox/code:alpha", "nanobox/code:latest", "nanobox/code:beta"}}
+	base := dc.APIImages{RepoTags: []string{"mubox/base:alpha", "mubox/base:latest", "mubox/base:beta"}}
+	redis := dc.APIImages{RepoTags: []string{"mubox/redis:3.4", "mubox/redis:latest", "mubox/base:3.4-stable"}}
+	code := dc.APIImages{RepoTags: []string{"mubox/code:alpha", "mubox/code:latest", "mubox/code:beta"}}
 	mClient.EXPECT().ListImages(dc.ListImagesOptions{}).AnyTimes().Return([]dc.APIImages{base, redis, code}, nil)
 
 	working := []string{
-		"nanobox/base",
-		"nanobox/base:alpha",
-		"nanobox/base:latest",
-		"nanobox/base:beta",
-		"nanobox/redis:3.4",
-		"nanobox/redis:latest",
-		"nanobox/base:3.4-stable",
-		"nanobox/code:alpha",
-		"nanobox/code:latest",
-		"nanobox/code:beta",
+		"mubox/base",
+		"mubox/base:alpha",
+		"mubox/base:latest",
+		"mubox/base:beta",
+		"mubox/redis:3.4",
+		"mubox/redis:latest",
+		"mubox/base:3.4-stable",
+		"mubox/code:alpha",
+		"mubox/code:latest",
+		"mubox/code:beta",
 	}
 	for _, work := range working {
 		if !docker.ImageExists(work) {
@@ -194,14 +194,14 @@ func TestImageExists(t *testing.T) {
 	}
 
 	notWorking := []string{
-		"nanobox/base:alphacentari",
-		"nanobox/bass:latest",
-		"nanobox/basestable",
-		"nanobox/redis:3.7",
-		"nanobox/redis:3.6-latest",
-		"nanobox/base:3.4-alpha",
+		"mubox/base:alphacentari",
+		"mubox/bass:latest",
+		"mubox/basestable",
+		"mubox/redis:3.7",
+		"mubox/redis:3.6-latest",
+		"mubox/base:3.4-alpha",
 		"cancer",
-		"nanobox/code:",
+		"mubox/code:",
 	}
 	for _, noWork := range notWorking {
 		if docker.ImageExists(noWork) {

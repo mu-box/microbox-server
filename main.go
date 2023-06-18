@@ -1,28 +1,18 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
-//
 package main
 
 import (
 	"os"
 	"time"
 
-	logapi "github.com/nanobox-io/nanobox-logtap/api"
-	"github.com/nanobox-io/nanobox-logtap/archive"
-	"github.com/nanobox-io/nanobox-logtap/collector"
-	"github.com/nanobox-io/nanobox-logtap/drain"
-	"github.com/nanobox-io/nanobox-router"
-	"github.com/nanobox-io/nanobox-server/api"
-	"github.com/nanobox-io/nanobox-server/config"
-	mistServer "github.com/nanopack/mist/server"
-	"github.com/nanopack/mist/core"
+	mistServer "github.com/mu-box/mist/server"
+	logapi "github.com/mu-box/microbox-logtap/api"
+	"github.com/mu-box/microbox-logtap/archive"
+	"github.com/mu-box/microbox-logtap/collector"
+	"github.com/mu-box/microbox-logtap/drain"
+	"github.com/mu-box/microbox-server/api"
+	"github.com/mu-box/microbox-server/config"
 )
 
-//
 func main() {
 	// dont start until the app is populated
 	for config.App() == "" {
@@ -44,9 +34,9 @@ func main() {
 	// initialize the api and set up routing
 	api := api.Init()
 
-	// start nanobox
+	// start microbox
 	if err := api.Start(config.Ports["api"]); err != nil {
-		config.Log.Fatal("[nanobox/main.go] Unable to start API, aborting...\n%v\n", err)
+		config.Log.Fatal("[microbox/main.go] Unable to start API, aborting...\n%v\n", err)
 		os.Exit(1)
 	}
 }

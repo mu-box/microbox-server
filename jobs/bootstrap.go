@@ -1,22 +1,14 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
-//
 package jobs
 
 import (
-	"github.com/nanobox-io/nanobox-golang-stylish"
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/util"
-	"github.com/nanobox-io/nanobox-server/util/docker"
-	"github.com/nanobox-io/nanobox-server/util/fs"
-	"github.com/nanobox-io/nanobox-server/util/script"
+	"github.com/mu-box/microbox-golang-stylish"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/util"
+	"github.com/mu-box/microbox-server/util/docker"
+	"github.com/mu-box/microbox-server/util/fs"
+	"github.com/mu-box/microbox-server/util/script"
 )
 
-//
 type Bootstrap struct {
 	ID     string
 	Engine string
@@ -34,14 +26,14 @@ func (j *Bootstrap) Process() {
 	}
 
 	// if the build image doesn't exist it needs to be downloaded
-	if !docker.ImageExists("nanobox/build") {
+	if !docker.ImageExists("mubox/build") {
 		util.LogInfo(stylish.Bullet("Pulling the latest build image (this will take awhile)... "))
-		docker.InstallImage("nanobox/build")
+		docker.InstallImage("mubox/build")
 	}
 
 	// create a build container
 	util.LogInfo(stylish.Bullet("Creating build container..."))
-	_, err := docker.CreateContainer(docker.CreateConfig{Image: "nanobox/build", Category: "bootstrap", UID: "bootstrap1"})
+	_, err := docker.CreateContainer(docker.CreateConfig{Image: "mubox/build", Category: "bootstrap", UID: "bootstrap1"})
 	if err != nil {
 		util.HandleError(stylish.Error("Failed to create build container", err.Error()))
 		util.UpdateStatus(j, "errored")

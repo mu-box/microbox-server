@@ -1,10 +1,3 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
-//
 package api
 
 //
@@ -16,9 +9,9 @@ import (
 	"github.com/gorilla/pat"
 	"github.com/pborman/uuid"
 
-	"github.com/nanobox-io/nanobox-server/config"
-	"github.com/nanobox-io/nanobox-server/jobs"
-	"github.com/nanobox-io/nanobox-server/util/worker"
+	"github.com/mu-box/microbox-server/config"
+	"github.com/mu-box/microbox-server/jobs"
+	"github.com/mu-box/microbox-server/util/worker"
 )
 
 // structs
@@ -36,7 +29,7 @@ func Init() *API {
 
 // Start
 func (api *API) Start(port string) error {
-	config.Log.Info("[nanobox/api] Starting server...\n")
+	config.Log.Info("[microbox/api] Starting server...\n")
 
 	//
 	api.Worker.QueueAndProcess(&jobs.Startup{})
@@ -48,7 +41,7 @@ func (api *API) Start(port string) error {
 	}
 
 	//
-	config.Log.Info("[nanobox/api] Listening on port %v\n", port)
+	config.Log.Info("[microbox/api] Listening on port %v\n", port)
 
 	// blocking...
 	if err := http.ListenAndServe("0.0.0.0"+port, routes); err != nil {
@@ -60,7 +53,7 @@ func (api *API) Start(port string) error {
 
 // registerRoutes
 func (api *API) registerRoutes() (*pat.Router, error) {
-	config.Log.Info("[nanobox/api] Registering routes...\n")
+	config.Log.Info("[microbox/api] Registering routes...\n")
 
 	//
 	router := pat.New()

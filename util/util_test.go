@@ -1,7 +1,7 @@
 package util_test
 
 import "testing"
-import "github.com/nanobox-io/nanobox-server/util"
+import "github.com/mu-box/microbox-server/util"
 
 func TestLock(t *testing.T) {
 	util.Lock()

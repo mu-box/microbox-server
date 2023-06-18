@@ -1,10 +1,3 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
-//
 package config
 
 import (
@@ -17,10 +10,9 @@ import (
 
 	"github.com/jcelliott/lumber"
 
-	"github.com/nanobox-io/nanobox-logtap"
+	"github.com/mu-box/microbox-logtap"
 )
 
-//
 var (
 	app         string
 	LogtapHost  string
@@ -35,14 +27,13 @@ var (
 	LogHandler http.HandlerFunc
 )
 
-//
 func init() {
 	MountFolder = "/vagrant/"
 	DockerMount = "/mnt/"
-	CachedBox = DockerMount + "sda/var/nanobox/Boxfile.cache"
+	CachedBox = DockerMount + "sda/var/microbox/Boxfile.cache"
 	// create an error object
 	var err error
-	levelEnv := os.Getenv("NANOBOX_LOGLEVEL")
+	levelEnv := os.Getenv("MICROBOX_LOGLEVEL")
 	if levelEnv == "" {
 		levelEnv = "INFO"
 	}
@@ -65,7 +56,6 @@ func init() {
 	Logtap = logtap.New(Log)
 }
 
-//
 func externalIP() (string, error) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
@@ -106,7 +96,6 @@ func externalIP() (string, error) {
 	return "", errors.New("are you connected to the network?")
 }
 
-//
 func App() string {
 	if app != "" {
 		return app

@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/nanobox-io/nanobox-server.svg?branch=master)](https://travis-ci.org/nanobox-io/nanobox-server)
-nanobox-server
+[![Build Status](https://github.com/mu-box/microbox-server/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/mu-box/microbox-server/actions)
+microbox-server
 ==============
 
-nanobox server
+microbox server
 
 TODO
 write README.md

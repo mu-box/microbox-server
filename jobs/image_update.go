@@ -1,22 +1,15 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
 package jobs
 
 import (
 	"strings"
 
-	"github.com/nanobox-io/nanobox-golang-stylish"
-	"github.com/nanobox-io/nanobox-server/util"
-	"github.com/nanobox-io/nanobox-server/util/docker"
+	stylish "github.com/mu-box/microbox-golang-stylish"
+	"github.com/mu-box/microbox-server/util"
+	"github.com/mu-box/microbox-server/util/docker"
 )
 
 type ImageUpdate struct{}
 
-//
 func (j *ImageUpdate) Process() {
 
 	//
@@ -37,7 +30,7 @@ func (j *ImageUpdate) Process() {
 		for _, tag := range image.RepoTags {
 
 			//
-			if strings.HasPrefix(tag, "nanobox") {
+			if strings.HasPrefix(tag, "mubox") {
 				util.LogInfo(stylish.SubBullet("- Updating image: %s", tag))
 				if err := docker.InstallImage(tag); err != nil {
 					util.HandleError("Unable to update image:" + err.Error())

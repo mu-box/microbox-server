@@ -1,9 +1,3 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
 package docker
 
 //
@@ -13,7 +7,7 @@ import (
 
 	docksig "github.com/docker/docker/pkg/signal"
 	dc "github.com/fsouza/go-dockerclient"
-	"github.com/nanobox-io/nanobox-server/config"
+	"github.com/mu-box/microbox-server/config"
 )
 
 type CreateConfig struct {
@@ -58,21 +52,21 @@ func addCategoryConfig(category string, cConfig *dc.CreateContainerOptions) {
 		if WorkingDir != "" {
 			cConfig.Config.WorkingDir = WorkingDir
 		}
-		cConfig.Config.User = "gonano"
+		cConfig.Config.User = "gomicro"
 		cConfig.HostConfig.Binds = append([]string{
 			config.MountFolder + "code/" + config.App() + "/:/code/",
 		}, LibDirs...)
 		if container, err := GetContainer("build1"); err == nil {
 			cConfig.HostConfig.Binds = append(cConfig.HostConfig.Binds, fmt.Sprintf("/mnt/sda/var/lib/docker/aufs/mnt/%s/data/:/data/", container.ID))
-			cConfig.HostConfig.Binds = append(cConfig.HostConfig.Binds, "/mnt/sda/var/nanobox/build/:/mnt/build/")
+			cConfig.HostConfig.Binds = append(cConfig.HostConfig.Binds, "/mnt/sda/var/microbox/build/:/mnt/build/")
 		}
 		cConfig.HostConfig.NetworkMode = "host"
 	case "build":
 		cConfig.Config.Cmd = []string{"/bin/sleep", "365d"}
 		cConfig.HostConfig.Binds = []string{
-			"/mnt/sda/var/nanobox/cache/:/mnt/cache/",
-			"/mnt/sda/var/nanobox/deploy/:/mnt/deploy/",
-			"/mnt/sda/var/nanobox/build/:/mnt/build/",
+			"/mnt/sda/var/microbox/cache/:/mnt/cache/",
+			"/mnt/sda/var/microbox/deploy/:/mnt/deploy/",
+			"/mnt/sda/var/microbox/build/:/mnt/build/",
 
 			config.MountFolder + "code/" + config.App() + "/:/share/code/:ro",
 			config.MountFolder + "engines/:/share/engines/:ro",
@@ -80,16 +74,16 @@ func addCategoryConfig(category string, cConfig *dc.CreateContainerOptions) {
 	case "bootstrap":
 		cConfig.Config.Cmd = []string{"/bin/sleep", "365d"}
 		cConfig.HostConfig.Binds = []string{
-			"/mnt/sda/var/nanobox/cache/:/mnt/cache/",
-			"/mnt/sda/var/nanobox/deploy/:/mnt/deploy/",
+			"/mnt/sda/var/microbox/cache/:/mnt/cache/",
+			"/mnt/sda/var/microbox/deploy/:/mnt/deploy/",
 
 			config.MountFolder + "code/" + config.App() + "/:/code/",
 			config.MountFolder + "engines/:/share/engines/:ro",
 		}
 	case "code":
 		cConfig.HostConfig.Binds = []string{
-			"/mnt/sda/var/nanobox/deploy/:/data/",
-			"/mnt/sda/var/nanobox/build/:/code/",
+			"/mnt/sda/var/microbox/deploy/:/data/",
+			"/mnt/sda/var/microbox/build/:/code/",
 		}
 	case "service":
 		if strings.Contains(cConfig.Name, "/") {

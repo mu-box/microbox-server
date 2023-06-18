@@ -1,9 +1,3 @@
-// Copyright (c) 2014 Pagoda Box Inc.
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License,
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-
 package fs
 
 import (
@@ -11,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/nanobox-io/nanobox-server/config"
+	"github.com/mu-box/microbox-server/config"
 )
 
 var dirs = []string{"cache", "deploy", "build"}
@@ -51,7 +45,7 @@ func UserPayload() map[string]interface{} {
 
 func (f Fs) CreateDirs() error {
 	for _, dir := range dirs {
-		err := os.MkdirAll(config.DockerMount+"sda/var/nanobox/"+dir+"/", 0755)
+		err := os.MkdirAll(config.DockerMount+"sda/var/microbox/"+dir+"/", 0755)
 		if err != nil {
 			return err
 		}
@@ -61,7 +55,7 @@ func (f Fs) CreateDirs() error {
 
 func (f Fs) Clean() error {
 	for _, dir := range dirs {
-		err := os.RemoveAll(config.DockerMount + "sda/var/nanobox/" + dir + "/")
+		err := os.RemoveAll(config.DockerMount + "sda/var/microbox/" + dir + "/")
 		if err != nil {
 			return err
 		}
@@ -75,7 +69,7 @@ func (f Fs) Touch(file string) {
 }
 
 func (f Fs) LibDirs() (rtn []string) {
-	files, err := ioutil.ReadDir(config.DockerMount + "sda/var/nanobox/cache/lib_dirs/")
+	files, err := ioutil.ReadDir(config.DockerMount + "sda/var/microbox/cache/lib_dirs/")
 	if err != nil {
 		return
 	}
