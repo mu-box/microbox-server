@@ -3,7 +3,7 @@ module github.com/mu-box/microbox-server
 go 1.20
 
 require (
-	github.com/docker/docker v1.4.2-0.20150727220108-542de786c260
+	github.com/docker/docker v1.6.1
 	github.com/fsouza/go-dockerclient v0.0.0-20151021230510-44f75219dec4
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/pat v0.0.0-20180118222023-199c85a7f6d1
