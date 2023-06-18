@@ -23,7 +23,7 @@ require (
 	github.com/deckarep/golang-set v0.0.0-20171013212420-1d4478f51bed // indirect
 	github.com/gorilla/context v1.1.1 // indirect
 	github.com/gorilla/mux v1.6.2-0.20180314163126-4dbd923b0c9e // indirect
-	github.com/gorilla/websocket v1.2.1-0.20180306181548-eb925808374e // indirect
+	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/jeromer/syslogparser v0.0.0-20131230204700-812866d0389a // indirect
 	github.com/lib/pq v0.0.0-20180201184707-88edab080323 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
