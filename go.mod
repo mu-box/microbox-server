@@ -3,7 +3,7 @@ module github.com/mu-box/microbox-server
 go 1.20
 
 require (
-	github.com/docker/docker v1.4.2-0.20150727220108-542de786c260
+	github.com/docker/docker v20.10.24+incompatible
 	github.com/fsouza/go-dockerclient v0.0.0-20151021230510-44f75219dec4
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/pat v0.0.0-20180118222023-199c85a7f6d1
@@ -18,7 +18,6 @@ require (
 )
 
 require (
-	github.com/Sirupsen/logrus v0.8.6-0.20150724014903-11538ee6888f // indirect
 	github.com/boltdb/bolt v1.1.1-0.20151112151049-0b00effdd7a8 // indirect
 	github.com/deckarep/golang-set v0.0.0-20171013212420-1d4478f51bed // indirect
 	github.com/gorilla/context v1.1.1 // indirect
@@ -30,8 +29,9 @@ require (
 	github.com/mu-box/golang-microauth v0.0.0-20220418115140-a7200e5d2be7 // indirect
 	github.com/mu-box/golang-scribble v0.0.0-20171026142921-ced58d671850 // indirect
 	github.com/nanobox-io/nanobox-logtap v0.0.0-20190311153657-5584500c6e11 // indirect
-	github.com/stretchr/testify v1.8.2 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/sys v0.7.0 // indirect
+	gotest.tools/v3 v3.5.0 // indirect
 	launchpad.net/gocheck v0.0.0-20140225173054-000000000087 // indirect
 	launchpad.net/goyaml v0.0.0-20140305200416-000000000051 // indirect
 )
